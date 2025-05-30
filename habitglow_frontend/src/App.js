@@ -497,7 +497,7 @@ function HomePage({
       burst.style.zIndex = 3333;
       burst.textContent = "🎉🎉🎉";
       document.body.appendChild(burst);
-      setTimeout(() => {
+      setTimeout(function() {
         document.body.removeChild(burst);
       }, 1300);
     }
