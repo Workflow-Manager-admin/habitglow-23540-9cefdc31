@@ -106,3 +106,69 @@ body {
   padding: 12px 24px;
   font-size: 1.1rem;
 }
+
+/* === Modern Animated Toggle Switch for HabitSpark Settings === */
+.habitglow-toggle-switch {
+  --toggle-bg: #edeefa;
+  --toggle-thumb: #fff;
+  --toggle-on-bg: var(--habitglow-toggle-accent, #7B61FF);
+  --toggle-on-thumb: #fff;
+  --toggle-off-bg: #e3e6f2;
+  --toggle-off-thumb: #fff;
+  --toggle-shadow: 0 1.5px 8px rgba(85,90,130,0.04), 0 0.5px 0 #bbb2;
+  position: relative;
+  width: 46px;
+  height: 26px;
+  border-radius: 17px;
+  border: none;
+  outline: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: filter 0.11s;
+}
+.habitglow-toggle-switch:focus {
+  box-shadow: 0 0 0 2px #b6ccff66;
+}
+.habitglow-switch-track {
+  display: block;
+  width: 46px;
+  height: 26px;
+  border-radius: 17px;
+  background: var(--toggle-off-bg);
+  transition: background 0.22s cubic-bezier(.3,.55,.7,1.1);
+  box-shadow: var(--toggle-shadow);
+  position: absolute;
+  top: 0; left: 0;
+}
+.habitglow-toggle-switch.checked .habitglow-switch-track {
+  background: var(--toggle-on-bg);
+  box-shadow: 0 1.5px 9px 0 rgba(110,231,183,0.09);
+}
+.habitglow-switch-thumb {
+  display: block;
+  width: 21px; height: 21px;
+  background: var(--toggle-off-thumb);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; left: 3px;
+  transform: translateY(-50%);
+  box-shadow: 0 1.5px 6px #7975ad17;
+  transition: left 0.21s cubic-bezier(.6,1.4,.82,1), background 0.22s;
+  will-change: left, background;
+}
+.habitglow-toggle-switch.checked .habitglow-switch-thumb {
+  background: var(--toggle-on-thumb);
+  left: 22px;
+  box-shadow: 0 3px 16px #82e6d94c;
+}
+.habitglow-toggle-switch:not(:disabled):active .habitglow-switch-thumb {
+  box-shadow: 0 3.5px 12px #a5b4fc4f, 0 0.5px 6px #fff3;
+  filter: brightness(0.99);
+}
+.habitglow-toggle-switch:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
