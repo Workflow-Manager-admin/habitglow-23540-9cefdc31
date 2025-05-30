@@ -502,7 +502,8 @@ function HomePage({
     }, 1300);
   }, [allDoneToday]);
 
-// Remove stray duplicate/conflicting useEffect or logical short-circuit confetti patterns below (if any).
+// Removed duplicate HomePage or stray confetti logic below (if any).
+// (No-op if none present.)
 
   return (
     <div>
