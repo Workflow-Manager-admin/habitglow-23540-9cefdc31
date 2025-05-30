@@ -502,6 +502,8 @@ function HomePage({
     }, 1300);
   }, [allDoneToday]);
 
+// Remove stray duplicate/conflicting useEffect or logical short-circuit confetti patterns below (if any).
+
   return (
     <div>
       <div style={{marginBottom:22, marginTop:24,textAlign:"center"}}>
