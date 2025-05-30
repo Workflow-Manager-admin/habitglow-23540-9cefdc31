@@ -1129,17 +1129,7 @@ function ToggleSwitch({ checked, onChange, id, ariaLabel, accent }) {
   );
 }
 
-// SettingsPage close/back gesture: modal parent in App handles setShowSettings(false)
-// We need to connect window "close-settings" event to setShowSettings(false)
-if (typeof window !== "undefined" && !window.__habitglow_settings_modal_close_attached) {
-  window.__habitglow_settings_modal_close_attached = true;
-  window.addEventListener("close-settings", function () {
-    // Use custom event; user to implement handler in App, e.g.:
-    // setShowSettings(false)
-    // In this template, parent App controls showSettings.
-    // Could trigger click-outside or back button gesture in future.
-  });
-}
+
 
 // =================== NOTIFICATION/TOAST ===================
 function ToastContainer({ toast }) {
