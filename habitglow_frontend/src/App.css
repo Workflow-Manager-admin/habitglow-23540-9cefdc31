@@ -1,9 +1,11 @@
 :root {
   --kavia-orange: #E87A41;
   --kavia-dark: #1A1A1A;
+  --kavia-light: #f5f5f5;
   --text-color: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border-color: rgba(255, 255, 255, 0.1);
+  --glow-effect: 0 0 8px rgba(232, 122, 65, 0.6), 0 0 12px rgba(232, 122, 65, 0.3);
 }
 
 body {
@@ -13,6 +15,8 @@ body {
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app {
@@ -20,10 +24,9 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .navbar {
   background-color: var(--kavia-dark);
-  padding: 16px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,23 +35,24 @@ body {
   top: 0;
   width: 100%;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
 }
 
 .logo {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  text-shadow: var(--glow-effect);
 }
 
 .logo-symbol {
   color: var(--kavia-orange);
 }
-
 .container {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
@@ -56,118 +60,113 @@ body {
 }
 
 .hero {
-  padding-top: 120px;
-  padding-bottom: 64px;
+  padding-top: 140px;
+  padding-bottom: 72px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
 }
 
 .subtitle {
   color: var(--kavia-orange);
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
 }
 
 .title {
-  font-size: 3.5rem;
-  font-weight: 600;
+  font-size: 3.75rem;
+  font-weight: 700;
   line-height: 1.2;
   margin: 0;
+  text-shadow: var(--glow-effect);
 }
 
 .description {
   font-size: 1.1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 700px;
   margin-bottom: 16px;
 }
-
 .btn {
   background-color: var(--kavia-orange);
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
+  border-radius: 6px;
+  padding: 10px 24px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--glow-effect);
+  text-shadow: 0 1px 2px #000;
 }
 
 .btn:hover {
-  background-color: #FF8B4D;
+  background-color: #ff965a;
+  box-shadow: 0 0 12px rgba(255, 141, 83, 0.75);
 }
 
 .btn-large {
-  padding: 12px 24px;
-  font-size: 1.1rem;
+  padding: 14px 32px;
+  font-size: 1.15rem;
 }
-
-/* === Modern Animated Toggle Switch for HabitSpark Settings === */
 .habitglow-toggle-switch {
-  --toggle-bg: #edeefa;
-  --toggle-thumb: #fff;
-  --toggle-on-bg: var(--habitglow-toggle-accent, #7B61FF);
-  --toggle-on-thumb: #fff;
+  --toggle-on-bg: #7B61FF;
   --toggle-off-bg: #e3e6f2;
-  --toggle-off-thumb: #fff;
-  --toggle-shadow: 0 1.5px 8px rgba(85,90,130,0.04), 0 0.5px 0 #bbb2;
+  --toggle-thumb: #fff;
   position: relative;
   width: 46px;
   height: 26px;
-  border-radius: 17px;
-  border: none;
-  outline: none;
+  border-radius: 20px;
   background: none;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
   padding: 0;
-  transition: filter 0.11s;
+  transition: all 0.2s ease-in-out;
 }
-.habitglow-toggle-switch:focus {
-  box-shadow: 0 0 0 2px #b6ccff66;
-}
+
 .habitglow-switch-track {
-  display: block;
-  width: 46px;
-  height: 26px;
-  border-radius: 17px;
+  width: 100%;
+  height: 100%;
   background: var(--toggle-off-bg);
-  transition: background 0.22s cubic-bezier(.3,.55,.7,1.1);
-  box-shadow: var(--toggle-shadow);
+  border-radius: 20px;
+  transition: background 0.25s;
   position: absolute;
   top: 0; left: 0;
 }
+
 .habitglow-toggle-switch.checked .habitglow-switch-track {
   background: var(--toggle-on-bg);
-  box-shadow: 0 1.5px 9px 0 rgba(110,231,183,0.09);
+  box-shadow: 0 0 10px rgba(123, 97, 255, 0.4);
 }
+
 .habitglow-switch-thumb {
-  display: block;
-  width: 21px; height: 21px;
-  background: var(--toggle-off-thumb);
+  width: 21px;
+  height: 21px;
+  background: var(--toggle-thumb);
   border-radius: 50%;
   position: absolute;
-  top: 50%; left: 3px;
+  top: 50%;
+  left: 3px;
   transform: translateY(-50%);
-  box-shadow: 0 1.5px 6px #7975ad17;
-  transition: left 0.21s cubic-bezier(.6,1.4,.82,1), background 0.22s;
-  will-change: left, background;
+  transition: left 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
 .habitglow-toggle-switch.checked .habitglow-switch-thumb {
-  background: var(--toggle-on-thumb);
   left: 22px;
-  box-shadow: 0 3px 16px #82e6d94c;
+  background: #ffffff;
 }
-.habitglow-toggle-switch:not(:disabled):active .habitglow-switch-thumb {
-  box-shadow: 0 3.5px 12px #a5b4fc4f, 0 0.5px 6px #fff3;
-  filter: brightness(0.99);
+
+.habitglow-toggle-switch:active .habitglow-switch-thumb {
+  filter: brightness(0.95);
 }
+
 .habitglow-toggle-switch:disabled {
   opacity: 0.6;
   cursor: not-allowed;
