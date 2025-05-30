@@ -741,6 +741,169 @@ function ToastContainer({ toast }) {
   );
 }
 
-// ... ToastContainer, FloatingAddButton, EmptyStatePage as before ...
+/* Minimal ToastContainer implementation */
+function ToastContainer({ toast }) {
+  // PUBLIC_INTERFACE
+  /**
+   * Inline ToastContainer: Displays animated toast-like notification based on the toast object.
+   * Supports: {type: "success"|"info"|"reminder", msg: string}
+   */
+  if (!toast || !toast.msg) return null;
+  let color = "#7B61FF";
+  if (toast.type === "success") color = "#6EE7B7";
+  if (toast.type === "info") color = "#A5B4FC";
+  if (toast.type === "reminder") color = "#FFD166";
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        position: "fixed",
+        bottom: 24,
+        left: "50%",
+        transform: "translateX(-50%)",
+        minWidth: 220,
+        maxWidth: 400,
+        background: "white",
+        color: "#22284d",
+        borderRadius: 16,
+        boxShadow: "0 6px 22px 0 rgba(80,53,222,0.12)",
+        padding: "14px 28px",
+        fontWeight: 600,
+        fontSize: "1.03rem",
+        border: `2.5px solid ${color}`,
+        zIndex: 2333,
+        opacity: 0.98,
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        pointerEvents: "none",
+        animation: "habitglow-toast-fadein 0.24s cubic-bezier(.39,1.08,.47,.97)"
+      }}>
+      <span role="img" aria-label="notify" style={{fontSize:20}}>
+        {toast.type === "success" ? "✅"
+          : toast.type === "info" ? "ℹ️"
+            : "🔔"}
+      </span>
+      <span>{toast.msg}</span>
+      <style>{`
+        @keyframes habitglow-toast-fadein {
+          from { opacity: 0; transform: translateY(30px) scale(0.98) translateX(-50%);}
+          to { opacity: 0.98; transform: translateY(0px) scale(1) translateX(-50%);}
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// =========== Minimal Placeholder Components ===========
+
+// PUBLIC_INTERFACE
+function EmptyStatePage({ onAdd }) {
+  return (
+    <div style={{padding: "48px 0", textAlign: "center"}}>
+      <div style={{fontSize: 48, marginBottom: 12}}>🌱</div>
+      <div style={{fontWeight: 600, fontSize: "1.35rem", marginBottom: 8}}>No habits yet...</div>
+      <div style={{color: "#a7adc0", marginBottom: 18}}>Start your first healthy habit!</div>
+      <button className="btn btn-large" onClick={onAdd}>Add Habit</button>
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+function HomePage({ habits, allDoneToday, onCheck, onUndo, onEdit, onDelete, openStreak, today }) {
+  return (
+    <div>
+      <div style={{marginBottom: 18, fontWeight: 500}}>Today's Habits:</div>
+      <ul style={{listStyle: "none", padding: 0}}>
+        {(habits || []).map((h) => (
+          <li key={h.id} style={{marginBottom: 12}}>
+            <span>{h.emoji || "🌟"} {h.name}</span>
+            <button onClick={() => onCheck(h.id)} style={{marginLeft: 16}}>Check</button>
+            <button onClick={() => onUndo(h.id)} style={{marginLeft: 4}}>Undo</button>
+            <button onClick={() => onEdit(h.id)} style={{marginLeft: 4}}>Edit</button>
+            <button onClick={() => onDelete(h.id)} style={{marginLeft: 4}}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <div>
+        <button onClick={openStreak} style={{marginTop:12}}>Show Streak</button>
+      </div>
+      {allDoneToday && <div style={{color: "#6EE7B7", marginTop: 20}}>🎉 All done for today!</div>}
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+function FloatingAddButton({ onClick }) {
+  return (
+    <button
+      className="btn"
+      style={{
+        position: "fixed",
+        bottom: 34,
+        right: 40,
+        background: "#7B61FF",
+        color: "white",
+        fontSize: "2rem",
+        borderRadius: "50%",
+        width: 64,
+        height: 64,
+        zIndex: 1002,
+        boxShadow: "0 4px 12px #7B61FF22"
+      }}
+      onClick={onClick}
+      aria-label="Add Habit"
+    >＋</button>
+  );
+}
+
+// PUBLIC_INTERFACE
+function HabitFormModal({ onClose, onSave, existingHabit, allHabits, accentColor }) {
+  return (
+    <div
+      style={{
+        position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh",
+        background: "rgba(0,0,0,0.17)", zIndex: 2222, display: "flex", alignItems: "center", justifyContent: "center"
+      }}
+      onClick={e => {if (e.target === e.currentTarget) onClose();}}
+    >
+      <div
+        style={{
+          background: "#fff", color: "#2d3748", borderRadius: 16, boxShadow: "0 6px 32px 0 rgba(80,53,222,0.13)",
+          padding: 32, width: 320, maxWidth: "90vw"
+        }}>
+        <div style={{fontWeight:700, fontSize:"1.12rem", color: accentColor || "#7B61FF"}}>Add/Edit Habit</div>
+        {/* Simple mock form */}
+        <input placeholder="Habit name" style={{width:"90%", margin: "14px 0"}} />
+        <button className="btn" style={{marginRight:8}} onClick={()=>onSave({id:Date.now()+"", name:"Demo Habit", emoji:"🌟", frequency:["Mon"], history:[], reminders:{}})}>Save</button>
+        <button className="btn" style={{background:"#D1D5DB", color:"#222"}} onClick={onClose}>Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+function StreakPage({ habits, onClose, accentColor }) {
+  return (
+    <div
+      style={{
+        position:"fixed", top:0, left:0, width:"100vw", height:"100vh",
+        background:"rgba(40,44,70,0.17)", zIndex: 2444, display: "flex", alignItems: "center", justifyContent: "center"
+      }}
+      onClick={e => {if (e.target === e.currentTarget) onClose();}}
+    >
+      <div
+        style={{
+          background:"#fff", color:"#22284d", borderRadius:18, boxShadow:"0 8px 22px 0 rgba(80,53,222,0.08)",
+          padding: 32, minWidth: 320, maxWidth: "90vw"
+        }}>
+        <div style={{fontWeight:700, color:accentColor||"#7B61FF", marginBottom:14, fontSize:"1.1rem"}}>Streak Progress (Placeholder)</div>
+        <div>Total Habits: {(habits||[]).length}</div>
+        <button className="btn" onClick={onClose} style={{marginTop:18, background:"#D1D5DB",color:"#222"}}>Close</button>
+      </div>
+    </div>
+  );
+}
 
 export default App;
