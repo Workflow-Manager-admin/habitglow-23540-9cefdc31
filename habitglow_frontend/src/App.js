@@ -486,18 +486,21 @@ function HomePage({
 }) {
   // Confetti Animation if allDoneToday
   useEffect(() => {
-    if (!allDoneToday) return;
-    // Simple confetti animation with emoji effect
-    const burst = document.createElement("div");
-    burst.style.position = "fixed";
-    burst.style.top = "40%";
-    burst.style.left = "50%";
-    burst.style.transform = "translate(-50%, -50%)";
-    burst.style.fontSize = "2.2rem";
-    burst.style.zIndex = 3333;
-    burst.textContent = "🎉🎉🎉";
-    document.body.appendChild(burst);
-    setTimeout(() => document.body.removeChild(burst), 1300);
+    if (allDoneToday) {
+      // Simple confetti animation with emoji effect
+      const burst = document.createElement("div");
+      burst.style.position = "fixed";
+      burst.style.top = "40%";
+      burst.style.left = "50%";
+      burst.style.transform = "translate(-50%, -50%)";
+      burst.style.fontSize = "2.2rem";
+      burst.style.zIndex = 3333;
+      burst.textContent = "🎉🎉🎉";
+      document.body.appendChild(burst);
+      setTimeout(() => {
+        document.body.removeChild(burst);
+      }, 1300);
+    }
   }, [allDoneToday]);
 
   return (
