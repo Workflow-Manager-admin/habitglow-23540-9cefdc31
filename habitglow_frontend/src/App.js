@@ -256,6 +256,15 @@ function App() {
     setRoute("home");
   };
 
+  // Listen to "close-settings" event to close Settings in parent (for modal UI)
+  useEffect(() => {
+    function closeSettingsHandler() {
+      setShowSettings(false);
+    }
+    window.addEventListener("close-settings", closeSettingsHandler);
+    return () => window.removeEventListener("close-settings", closeSettingsHandler);
+  }, []);
+
   // ============== Render Application ==============
   return (
     <div className={`app${settings.dark ? " dark" : ""}`}>
