@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/habitglow-23540-9cefdc31/habitglow_frontend"
+}
