@@ -75,6 +75,61 @@ const emptyUser = { isAuthenticated: false, name: "", email: "", onboardingDone:
 const emptySettings = { dark: false, notifications: false };
 const emptyHabitList = [];
 
+/* Minimal ToastContainer implementation */
+function ToastContainer({ toast }) {
+  // PUBLIC_INTERFACE
+  /**
+   * Inline ToastContainer: Displays animated toast-like notification based on the toast object.
+   * Supports: {type: "success"|"info"|"reminder", msg: string}
+   */
+  if (!toast || !toast.msg) return null;
+  let color = "#7B61FF";
+  if (toast.type === "success") color = "#6EE7B7";
+  if (toast.type === "info") color = "#A5B4FC";
+  if (toast.type === "reminder") color = "#FFD166";
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        position: "fixed",
+        bottom: 24,
+        left: "50%",
+        transform: "translateX(-50%)",
+        minWidth: 220,
+        maxWidth: 400,
+        background: "white",
+        color: "#22284d",
+        borderRadius: 16,
+        boxShadow: "0 6px 22px 0 rgba(80,53,222,0.12)",
+        padding: "14px 28px",
+        fontWeight: 600,
+        fontSize: "1.03rem",
+        border: `2.5px solid ${color}`,
+        zIndex: 2333,
+        opacity: 0.98,
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        pointerEvents: "none",
+        animation: "habitglow-toast-fadein 0.24s cubic-bezier(.39,1.08,.47,.97)"
+      }}>
+      <span role="img" aria-label="notify" style={{fontSize:20}}>
+        {toast.type === "success" ? "✅"
+          : toast.type === "info" ? "ℹ️"
+            : "🔔"}
+      </span>
+      <span>{toast.msg}</span>
+      <style>{`
+        @keyframes habitglow-toast-fadein {
+          from { opacity: 0; transform: translateY(30px) scale(0.98) translateX(-50%);}
+          to { opacity: 0.98; transform: translateY(0px) scale(1) translateX(-50%);}
+        }
+      `}</style>
+    </div>
+  );
+}
+
 // =================== Main App ===================
 function App() {
   // -------------- Application State --------------
