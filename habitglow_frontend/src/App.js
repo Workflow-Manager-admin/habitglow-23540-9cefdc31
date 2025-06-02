@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "./App.css";
 
+// PUBLIC_INTERFACE
+// The following components are referenced in App.js but are not defined: OnboardingPage, EmptyStatePage, HomePage, FloatingAddButton, HabitFormModal, StreakPage, SettingsPage, HabitCard
+// We need to provide at least stub components to avoid runtime errors during import/compilation.
+function OnboardingPage(props) { return <div>Onboarding Page (Stub)</div>; }
+function EmptyStatePage(props) { return <div>Empty State Page (Stub)</div>; }
+function HomePage(props) { return <div>Home Page (Stub)</div>; }
+function FloatingAddButton(props) { return <button onClick={props.onClick}>＋</button>; }
+function HabitFormModal(props) { return null; }
+function StreakPage(props) { return null; }
+function SettingsPage(props) { return null; }
+function HabitCard(props) { return null; }
+
 // =================== Theme and Color Setup ===================
 const pastelGradients = [
   "linear-gradient(135deg, #a5b4fc 0%, #81e6d9 100%)",

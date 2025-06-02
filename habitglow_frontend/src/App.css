@@ -171,3 +171,43 @@ body {
   opacity: 0.6;
   cursor: not-allowed;
 }
+body {
+  margin: 0;
+  font-family: -apple-system, BlurMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.dark {
+  --border-color: rgba(255,255,255,0.1);
+  color: white;
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
